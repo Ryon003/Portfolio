@@ -1,0 +1,9 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #0b080c;
+  color: #fff;
+  z-index: 9999;
+}
