@@ -9,6 +9,32 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function removeTrialOverlay() {
+        var MARKER = "Oops! Trial version of ScrollSmoother deployed";
+        var MAX_DURATION_MS = 15000;
+        var startedAt = Date.now();
+        var scrub = function () {
+          var nodes = document.querySelectorAll("body *");
+          for (var i = 0; i < nodes.length; i++) {
+            var el = nodes[i];
+            var text = (el.textContent || "").trim();
+            if (text.indexOf(MARKER) !== -1) {
+              var container = el.closest("div") || el;
+              container.remove();
+              document.body.style.overflow = "";
+              document.documentElement.style.overflow = "";
+            }
+          }
+          if (Date.now() - startedAt > MAX_DURATION_MS) {
+            observer.disconnect();
+          }
+        };
+        var observer = new MutationObserver(scrub);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        scrub();
+      })();
+    </script>
     <script type="module" crossorigin src="/Portfolio/dist/assets/index-syonqPs8.js"></script>
   </body>
 </html>
